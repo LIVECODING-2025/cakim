@@ -1,0 +1,115 @@
+/* === Body === */
+body {
+    background-color: #e6f2ff;
+  }
+  
+  /* === Navbar === */
+  .navbar {
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-style: italic;
+    color: white !important;
+  }
+  .navbar-nav .nav-link {
+    color: white !important;
+    font-weight: 600;
+    margin-left: 1rem;
+  }
+  .navbar-nav .nav-link.active {
+    text-decoration: underline;
+  }
+  
+  /* === Sidebar === */
+.sidebar, .sidebar-tabs {
+    background-color: #f0f7ff;
+    border-radius: 15px;
+    padding: 20px;
+    height: 100%;
+}
+
+/* Link di Sidebar */
+.nav-link-btn, .sidebar-tabs .nav-link {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    color: #007bff;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: all 0.3s;
+    text-decoration: none; /* hilangkan garis bawah */
+    display: inline-block;
+}
+
+/* Hover dan Aktif */
+.nav-link-btn:hover, .sidebar-tabs .nav-link:hover {
+    background-color: rgba(0,123,255,0.1);
+    text-decoration: none; /* tetap tidak bergaris saat hover */
+}
+
+.nav-link-btn.active, .sidebar-tabs .nav-link.active {
+    background-color: #007bff;
+    color: white;
+    text-decoration: none; /* tidak bergaris walau aktif */
+}
+
+  
+  /* === Main Content === */
+  .main-content, .event-section {
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    padding: 30px;
+    height: 100%;
+  }
+  
+  /* === Section Title === */
+  .section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0072ff;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title i {
+    color: #00c6ff;
+    font-size: 1.8rem;
+  }
+  .section-title h2 {
+    color: #0072ff;
+    font-weight: bold;
+  }
+  
+  /* === Event Card === */
+  .event-card {
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #f0f7ff, #e1e8f1);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+    overflow: hidden;
+    padding: 30px 20px;
+    min-height: 300px;
+    text-align: center;
+  }
+  .event-card:hover {
+    transform: translateY(-5px);
+  }
+  .event-image {
+    background: linear-gradient(135deg, #d6eaff, #ffffff);
+    border-radius: 12px;
+    padding: 50px 0;
+    font-weight: bold;
+    color: #0072ff;
+    box-shadow: inset 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+  }
+  

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Serievent.id - Seminar</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="css/stayle.css" rel="stylesheet"> <!-- custom style -->
+  <style>
+    body {
+      background: #e9f1fb;
+      overflow-x: hidden;
+    }
+    .navbar {
+      background: linear-gradient(90deg, #00b2ff, #007aff);
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+    }
+    .navbar-brand {
+      font-weight: bold;
+      font-style: italic;
+      color: white;
+    }
+    .navbar-nav .nav-link {
+      color: white;
+      margin-left: 15px;
+    }
+    .navbar-nav .nav-link.active {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    .sidebar {
+      background: #f0f6ff;
+      height: calc(100vh - 70px);
+      position: sticky;
+      top: 70px;
+      overflow-y: auto;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+    .nav-link-btn {
+      padding: 10px 15px;
+      border-radius: 10px;
+      color: #007aff;
+      font-weight: 500;
+    }
+    .nav-link-btn.active, .nav-link-btn:hover {
+      background: #007aff;
+      color: white;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0, 122, 255, 0.4);
+    }
+    .main-content {
+      background: white;
+      min-height: 500px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+      border-radius: 10px;
+    }
+    .card {
+      border: none;
+      background: #f0f6ff;
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+      transition: 0.3s;
+    }
+    .card:hover {
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    .card img {
+      background: #e0ecff;
+      height: 150px;
+      object-fit: cover;
+    }
+    .card-body h5 {
+      font-weight: bold;
+    }
+    .btn-primary {
+      background-color: #007aff;
+      border: none;
+      font-weight: 500;
+      border-radius: 8px;
+      padding: 5px 15px;
+    }
+    .btn-primary:hover {
+      background-color: #005bb5;
+    }
+    .section-title h2 {
+      color: #007aff;
+      font-weight: bold;
+    }
+    @media (max-width: 768px) {
+      .sidebar {
+        position: static;
+        height: auto;
+        top: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="#">Serievent.id</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <div class="navbar-nav">
+        <a class="nav-link" href="#">About</a>
+        <a class="nav-link" href="#">Account</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Content -->
+<div class="container-fluid my-4">
+  <div class="row g-4">
+    <!-- Sidebar -->
+    <div class="col-md-3">
+      <div class="sidebar p-3 rounded d-flex flex-column gap-2">
+        <a href="dashboard.html" class="nav-link-btn active d-flex align-items-center">
+          <i class="fas fa-home me-2"></i> Dashboard
+        </a>
+        <a href="event.html" class="nav-link-btn d-flex align-items-center">
+          <i class="fas fa-calendar-alt me-2"></i> Event
+        </a>
+        <a href="seminar.html" class="nav-link-btn  d-flex align-items-center">
+          <i class="fas fa-chalkboard-teacher me-2"></i> Seminar
+        </a>
+        <a href="workshop.html" class="nav-link-btn  d-flex align-items-center">
+          <i class="fas fa-tools me-2"></i> Workshop
+        </a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9">
+      <div class="main-content">
+        <div class="mb-4">
+          <h2 class="fw-bold text-primary">Selamat Datang di Serievent.id!</h2>
+          <p class="text-muted">Temukan dan ikuti berbagai seminar dan workshop terbaik dari kami!</p>
+        </div>
+
+        <!-- Banner -->
+        <div class="mb-4">
+          <img src="img/banner.jpg" class="img-fluid rounded" alt="Banner" style="height: 200px; width: 100%; object-fit: cover;">
+        </div>
+
+        <!-- Section Title -->
+        <div class="mb-4">
+          <h4 class="fw-bold text-primary">Event Minggu Ini</h4>
+        </div>
+
+        <!-- Event Cards -->
+        <div class="row g-4">
+          <!-- Card 1 -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm position-relative">
+              <span class="badge bg-primary position-absolute" style="top:10px; left:10px;">Baru</span>
+              <img src="admin/gambar/event1.jpg" class="card-img-top" alt="Judul Event 1" style="height: 200px; object-fit: cover;">
+              <div class="card-body text-center">
+                <h5 class="card-title">Seminar Teknologi</h5>
+                <p class="card-text text-muted">Seminar - 05 Mei 2025</p>
+                <a href="#" class="btn btn-primary btn-sm">Lihat Detail</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+              <img src="admin/gambar/event2.jpg" class="card-img-top" alt="Judul Event 2" style="height: 200px; object-fit: cover;">
+              <div class="card-body text-center">
+                <h5 class="card-title">Workshop Bisnis</h5>
+                <p class="card-text text-muted">Workshop - 07 Mei 2025</p>
+                <a href="#" class="btn btn-primary btn-sm">Lihat Detail</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+              <img src="admin/gambar/event3.jpg" class="card-img-top" alt="Judul Event 3" style="height: 200px; object-fit: cover;">
+              <div class="card-body text-center">
+                <h5 class="card-title">Seminar Kesehatan</h5>
+                <p class="card-text text-muted">Seminar - 08 Mei 2025</p>
+                <a href="#" class="btn btn-primary btn-sm">Lihat Detail</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+              <img src="admin/gambar/event4.jpg" class="card-img-top" alt="Judul Event 4" style="height: 200px; object-fit: cover;">
+              <div class="card-body text-center">
+                <h5 class="card-title">Workshop Coding</h5>
+                <p class="card-text text-muted">Workshop - 09 Mei 2025</p>
+                <a href="#" class="btn btn-primary btn-sm">Lihat Detail</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+              <img src="admin/gambar/event5.jpg" class="card-img-top" alt="Judul Event 5" style="height: 200px; object-fit: cover;">
+              <div class="card-body text-center">
+                <h5 class="card-title">Seminar Startup</h5>
+                <p class="card-text text-muted">Seminar - 10 Mei 2025</p>
+                <a href="#" class="btn btn-primary btn-sm">Lihat Detail</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm position-relative">
+              <span class="badge bg-primary position-absolute" style="top:10px; left:10px;">Baru</span>
+              <img src="admin/gambar/event6.jpg" class="card-img-top" alt="Judul Event 6" style="height: 200px; object-fit: cover;">
+              <div class="card-body text-center">
+                <h5 class="card-title">Workshop Digital Marketing</h5>
+                <p class="card-text text-muted">Workshop - 11 Mei 2025</p>
+                <a href="#" class="btn btn-primary btn-sm">Lihat Detail</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

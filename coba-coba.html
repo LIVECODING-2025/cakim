@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard | Serievent.id</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/stayle.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9fafb;
+    }
+    .sidebar {
+      background: linear-gradient(to bottom, #007bff, #0056b3);
+      min-height: 100vh;
+      padding: 20px;
+      color: #fff;
+    }
+    .sidebar a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      margin: 15px 0;
+      font-weight: 500;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      transition: 0.3s;
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+    }
+    .event-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 15px;
+      border: 1px solid #eee;
+      margin-bottom: 15px;
+    }
+    .event-card:hover {
+      border-color: #007bff;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container-fluid">
+  <div class="row">
+
+    <!-- Sidebar -->
+    <nav class="col-md-2 d-none d-md-block sidebar">
+      <div class="mb-4">
+        <h2 class="fw-bold">Serievent.id</h2>
+      </div>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link" href="#">🏠 Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">🎤 Seminar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">🛠️ Workshop</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">👤 Account</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">🚪 Logout</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Main content -->
+    <main class="col-md-10 ms-sm-auto px-md-4">
+
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+        <h1 class="h2">Dashboard</h1>
+        <div>
+          <span>Admin</span>
+        </div>
+      </div>
+
+      <!-- Cards Statistik -->
+      <div class="row g-3 mb-4">
+        <div class="col-md-3">
+          <div class="card p-3 shadow-sm">
+            <h5>Total Seminar</h5>
+            <p class="fs-4 text-primary">4 Seminar</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card p-3 shadow-sm">
+            <h5>Total Workshop</h5>
+            <p class="fs-4 text-primary">4 Workshop</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card p-3 shadow-sm">
+            <h5>Peserta Terdaftar</h5>
+            <p class="fs-4 text-primary">120 Peserta</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card p-3 shadow-sm">
+            <h5>Event Aktif</h5>
+            <p class="fs-4 text-primary">8 Event</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event Terbaru -->
+      <div class="mb-4">
+        <h3 class="mb-3">Event Terbaru</h3>
+
+        <div class="event-card">
+          <h5>Seminar Kewirausahaan</h5>
+          <small>20 Mei 2025 - Aktif</small>
+        </div>
+
+        <div class="event-card">
+          <h5>Workshop AI Basics</h5>
+          <small>25 Mei 2025 - Aktif</small>
+        </div>
+
+        <div class="event-card">
+          <h5>Seminar Masa Depan Teknologi</h5>
+          <small>30 Mei 2025 - Aktif</small>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
