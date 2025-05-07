@@ -1,0 +1,192 @@
+<?php
+include 'koneksi.php'; // Pastikan koneksi.php berfungsi dan ada.
+$conn = new mysqli($host, $user, $pass, $db);
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
+// Query untuk mengambil semua event beserta sisa kuota
+$sql = "SELECT id_event, nama_event, poster, kuota, 
+                (kuota - (SELECT COUNT(*) FROM pendaftar WHERE id_event = event.id_event)) AS sisa_kuota, 
+                tanggal 
+        FROM event";
+
+$result = $conn->query($sql);
+?> 
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Serievent.id - Event</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            background: #e9f1fb;
+            overflow-x: hidden;
+        }
+        .navbar {
+            background: linear-gradient(90deg, #00b2ff, #007aff);
+            position: sticky;
+            top: 0;
+            z-index: 1030;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-style: italic;
+            color: rgb(255, 255, 255);
+        }
+        .navbar-nav .nav-link {
+            color: rgb(255, 255, 255);
+            margin-left: 15px;
+        }
+        .sidebar {
+            background: #e1ebfa;
+            height: calc(100vh - 70px);
+            position: sticky;
+            top: 70px;
+            overflow-y: auto;
+            padding: 1rem;
+            border-radius: 10px;
+        }
+        .nav-link-btn {
+            padding: 10px 15px;
+            border-radius: 10px;
+            color: #007aff;
+            font-weight: 500;
+        }
+        .nav-link-btn.active, .nav-link-btn:hover {
+            background: #007aff;
+            color: rgb(255, 255, 255);
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0, 122, 255, 0.4);
+        }
+        .main-content {
+            background: rgb(255, 255, 255);
+            min-height: 500px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+        .card {
+            border: none;
+            background: #f0f6ff;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            transition: 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .card img {
+            background: #e0ecff;
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: contain;
+        }
+        .card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-body h5 {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007aff;
+            border: none;
+            font-weight: 500;
+            border-radius: 8px;
+            padding: 5px 15px;
+        } 
+        .btn-primary:hover {
+            background-color: #005bb5;
+        }
+        .section-title h2 {
+            color: #007aff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="#">Serievent.id</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <div class="navbar-nav">
+                <a class="nav-link" href="about.html">About</a>
+                <a class="nav-link" href="account.html">Account</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Content -->
+<div class="container-fluid my-4">
+    <div class="row g-4">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <div class="sidebar p-3 rounded d-flex flex-column gap-2">
+                <a href="dashboard.html" class="nav-link-btn d-flex align-items-center">
+                    <i class="fas fa-home me-2"></i> Dashboard
+                </a>
+                <a href="event.php" class="nav-link-btn active d-flex align-items-center">
+                    <i class="fas fa-calendar-alt me-2"></i> Event
+                </a>
+                <a href="seminar.html" class="nav-link-btn d-flex align-items-center">
+                    <i class="fas fa-chalkboard-teacher me-2"></i> Seminar
+                </a>
+                <a href="workshop.html" class="nav-link-btn d-flex align-items-center">
+                    <i class="fas fa-tools me-2"></i> Workshop
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9">
+            <div class="main-content">
+                <div class="d-flex align-items-center mb-4 section-title">
+                    <i class="fas fa-calendar-alt me-2"></i>
+                    <h2 class="mb-0">Event</h2>
+                </div>
+                
+                <div class="row g-4">
+                    <?php if ($result->num_rows > 0): ?>
+                        <?php while ($event = $result->fetch_assoc()): ?>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card text-center p-3">
+                                    <img src="../poster/?= htmlspecialchars($event['poster']) ?>" alt="<?= htmlspecialchars($event['nama_event']) ?>">
+                                    <div class="card-body">
+                                        <h5><?= htmlspecialchars($event['nama_event']) ?></h5>
+                                        <h4 class="text-primary"><?= htmlspecialchars($event['sisa_kuota']) ?></h4>
+                                        <p class="text-muted">Sisa Kuota</p>
+                                        <p><strong>Waktu:</strong> <?= date('d M Y', strtotime($event['tanggal'])) ?></p>
+                                        <a href="detail.php?id_event=<?= $event['id_event'] ?>" class="btn btn-primary btn-sm">Lihat Detail</a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <p class="text-center">Tidak ada event yang tersedia.</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -138,7 +138,7 @@ $result = mysqli_query($koneksi, $query);
         <a href="tabel.php" class="nav-link-btn active d-flex align-items-center">
           <i class="fas fa-table me-2"></i> Tabel Event
         </a>
-        <a href="konfirmasi.html" class="nav-link-btn d-flex align-items-center">
+        <a href="konfirmasi.php" class="nav-link-btn  d-flex align-items-center">
           <i class="fas fa-check-square me-2"></i> Konfirmasi Event
         </a>
       </div>
@@ -148,7 +148,7 @@ $result = mysqli_query($koneksi, $query);
     <div class="col-12 col-md-9">
       <div class="main-content">
         <div class="section-title mb-4">
-          <h2>Tabel Event</h2>
+          <h2>Konfirmasi Event</h2>
         </div>
 
         <div class="table-responsive">
@@ -164,6 +164,7 @@ $result = mysqli_query($koneksi, $query);
                 <th>Kategori</th>
                 <th>Kuota</th>
                 <th>Deskripsi</th>
+                <th>Status</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -188,6 +189,7 @@ $result = mysqli_query($koneksi, $query);
                   <td><?= htmlspecialchars($row['kategori']) ?></td>
                   <td><?= (int)$row['kuota'] ?></td>
                   <td><?= htmlspecialchars($row['deskripsi']) ?></td>
+                  <td><?= htmlspecialchars($row['status']) ?></td>
                   <td class="action-buttons">
                     <a href="edit_event.php?id_event=<?= $row['id_event'] ?>" class="btn btn-primary" title="Edit">
                       <i class="fas fa-pen"></i>
@@ -200,7 +202,7 @@ $result = mysqli_query($koneksi, $query);
               <?php endwhile; ?>
               <?php if (mysqli_num_rows($result) == 0) : ?>
                 <tr>
-                  <td colspan="10">Belum ada event yang ditambahkan.</td>
+                  <td colspan="11">Belum ada event yang ditambahkan.</td>
                 </tr>
               <?php endif; ?>
             </tbody>
