@@ -11,6 +11,7 @@ if (isset($_POST['submit'])) {
     $kategori = $_POST['kategori'];
     $kuota = intval($_POST['kuota']);
     $deskripsi = mysqli_real_escape_string($conn, $_POST['deskripsi']);
+    $id_admin = $_POST['id_admin'];
 
     // Upload file poster
     $poster = '';
@@ -37,8 +38,8 @@ if (isset($_POST['submit'])) {
     }
 
     // Simpan ke database dengan status 'menunggu'
-    $query = "INSERT INTO event (nama_event, tanggal, waktu, lokasi, kategori, kuota, deskripsi, poster, status) 
-                VALUES ('$nama_event', '$tanggal', '$waktu', '$lokasi', '$kategori', $kuota, '$deskripsi', '$poster', 'menunggu')";
+    $query = "INSERT INTO event (nama_event, tanggal, waktu, lokasi, kategori, kuota, deskripsi, poster, status, id_admin) 
+                VALUES ('$nama_event', '$tanggal', '$waktu', '$lokasi', '$kategori', $kuota, '$deskripsi', '$poster', 'menunggu', '$id_admin')";
 
     if (mysqli_query($conn, $query)) {
         $_SESSION['pesan'] = [

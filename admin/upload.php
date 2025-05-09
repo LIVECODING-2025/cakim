@@ -1,5 +1,12 @@
 <?php
+include 'koneksi.php';
 session_start();
+if (!isset($_SESSION['username'])) {
+  header("Location: login.php");
+  exit();
+}
+
+$id_admin = $_SESSION['id_admin'];
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -146,7 +153,8 @@ session_start();
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <div class="navbar-nav">
         <a class="nav-link" href="#">About</a>
-        <a class="nav-link" href="#">Account</a>
+        <a class="nav-link" href="profile.php">Profile</a>
+        <a class="nav-link" href="logout.php">Logout</a>
       </div>
     </div>
   </div>
@@ -160,26 +168,11 @@ session_start();
     <!-- Sidebar -->
 <div class="col-12 col-md-3">
   <div class="sidebar d-flex flex-column gap-2">
-    <a href="dashboard.html" class="nav-link-btn d-flex align-items-center">
-      <i class="fas fa-home me-2"></i> Dashboard
-    </a>
-    <a href="#" class="nav-link-btn d-flex align-items-center">
-      <i class="fas fa-calendar-alt me-2"></i> Event
-    </a>
-    <a href="seminar.html" class="nav-link-btn d-flex align-items-center">
-      <i class="fas fa-chalkboard-teacher me-2"></i> Seminar
-    </a>
-    <a href="workshop.html" class="nav-link-btn d-flex align-items-center">
-      <i class="fas fa-tools me-2"></i> Workshop
-    </a>
     <a href="upload.php" class="nav-link-btn active d-flex align-items-center">
       <i class="fas fa-cloud-upload-alt me-2"></i> Upload Event
     </a>
     <a href="tabel.php" class="nav-link-btn d-flex align-items-center">
       <i class="fas fa-table me-2"></i> Tabel Event
-    </a>
-    <a href="konfirmasi.php" class="nav-link-btn d-flex align-items-center">
-      <i class="fas fa-check-square me-2"></i> Konfirmasi Event
     </a>
   </div>
 </div>
@@ -238,6 +231,7 @@ session_start();
             <label class="form-label">Upload Poster</label>
             <input type="file" name="poster" class="form-control" accept="image/*">
           </div>
+          <input type="hidden" name="id_admin" value="<?= $id_admin?>">
           <button type="submit" name="submit" class="btn btn-primary">Simpan Event</button>
         </form>
 

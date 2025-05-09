@@ -6,15 +6,21 @@ if (!isset($_SESSION['username'])) {
 }
 
 include 'koneksi.php';
+// Koneksi ke database
+$host = 'localhost';
+$user = 'root';
+$password = '';
+$database = 'seri_event';
 
-// Ambil nama user yang login (opsional, bisa digunakan untuk navbar misalnya)
-$id_user = $_SESSION['id_user'];
-$queryUser = "SELECT username FROM user WHERE id_user = '$id_user'";
-$resultUser = $conn->query($queryUser);
-$user = $resultUser->fetch_assoc();
+$conn = new mysqli($host, $user, $password, $database);
 
-// Query untuk mengambil data event
-$query = "SELECT * FROM event WHERE kategori IN ('Seminar', 'Workshop') AND status = 'disetujui'";
+// Cek koneksi
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
+// Query untuk mengambil data workshop
+$query = "SELECT * FROM event WHERE kategori = 'Workshop' AND status = 'disetujui'";
 $result = $conn->query($query);
 ?>
 
@@ -23,7 +29,7 @@ $result = $conn->query($query);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Serievent.id - Semua Event</title>
+  <title>Serievent.id - Workshop</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
@@ -120,7 +126,7 @@ $result = $conn->query($query);
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg sticky-top shadow-sm">
+<nav class="navbar navbar-expand-lg">
   <div class="container">
     <a class="navbar-brand" href="#">Serievent.id</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -128,7 +134,7 @@ $result = $conn->query($query);
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <div class="navbar-nav">
-        <a class="nav-link" href="about.php">About</a>
+        <a class="nav-link" href="about.html">About</a>
         <a class="nav-link" href="profile.php">Profile</a>
         <a class="nav-link" href="logout.php">Logout</a>
       </div>
@@ -143,18 +149,18 @@ $result = $conn->query($query);
     <div class="col-md-3">
       <div class="sidebar d-flex flex-column gap-2">
         <a href="dashboard.php" class="nav-link-btn "><i class="fas fa-home me-2"></i> Dashboard</a>
-        <a href="event.php" class="nav-link-btn active"><i class="fas fa-calendar-alt me-2"></i> Event</a>
+        <a href="event.php" class="nav-link-btn"><i class="fas fa-calendar-alt me-2"></i> Event</a>
         <a href="seminar.php" class="nav-link-btn"><i class="fas fa-chalkboard-teacher me-2"></i> Seminar</a>
-        <a href="workshop.php" class="nav-link-btn "><i class="fas fa-tools me-2"></i> Workshop</a>
+        <a href="workshop.php" class="nav-link-btn active"><i class="fas fa-tools me-2"></i> Workshop</a>
       </div>
     </div>
 
     <!-- Main Content -->
     <div class="col-md-9">
-      <div class="main-content">
-        <div class="mb-4">
-          <h2 class="fw-bold text-primary">Semua Event</h2>
-          <p class="text-muted">Berikut adalah semua event yang tersedia.</p>
+      <div class="main-content p-4 rounded">
+        <div class="d-flex align-items-center mb-4 section-title">
+          <i class="fas fa-tools me-2"></i>
+          <h2 class="mb-0">Workshop</h2>
         </div>
 
         <div class="row g-4">
@@ -197,7 +203,7 @@ $result = $conn->query($query);
           <?php else: ?>
             <div class="col-12">
               <div class="alert alert-info text-center">
-                Belum ada event yang tersedia.
+                Belum ada workshop yang tersedia.
               </div>
             </div>
           <?php endif; ?>
@@ -208,5 +214,6 @@ $result = $conn->query($query);
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

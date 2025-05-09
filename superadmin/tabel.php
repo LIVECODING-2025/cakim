@@ -6,12 +6,11 @@ if (!isset($_SESSION['username'])) {
   exit();
 }
 
-
-// Ambil semua data event dari database
-$id_admin = $_SESSION['id_admin'];
-$query = "SELECT * FROM event WHERE id_admin = '$id_admin' ORDER BY id_event DESC";
-$result = mysqli_query($koneksi, $query);
+$query = "SELECT * FROM event ORDER BY id_event DESC";
+$result = mysqli_query($conn, $query); // Gunakan $conn sesuai dengan variabel koneksi Anda
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="id">
@@ -127,14 +126,16 @@ $result = mysqli_query($koneksi, $query);
     <!-- Sidebar -->
     <div class="col-12 col-md-3">
       <div class="sidebar d-flex flex-column gap-2">
-        <a href="upload.php" class="nav-link-btn d-flex align-items-center">
-          <i class="fas fa-cloud-upload-alt me-2"></i> Upload Event
-        </a>
-        <a href="tabel.php" class="nav-link-btn active d-flex align-items-center">
-          <i class="fas fa-table me-2"></i> Tabel Event
-        </a>
+        <a href="dashboard.php" class="nav-link-btn "><i class="fas fa-home me-2"></i> Dashboard</a>
+        <a href="event.php" class="nav-link-btn"><i class="fas fa-calendar-alt me-2"></i> Event</a>
+        <a href="seminar.php" class="nav-link-btn"><i class="fas fa-chalkboard-teacher me-2"></i> Seminar</a>
+        <a href="workshop.php" class="nav-link-btn"><i class="fas fa-tools me-2"></i> Workshop</a>
+        <a href="tabel.php" class="nav-link-btn active"><i class="fas fa-table me-2"></i> Tabel Event</a>
+        <a href="konfirmasi.php" class="nav-link-btn "><i class="fas fa-check-square me-2"></i> Konfirmasi Event</a>
       </div>
-    </div>
+      </div>
+    
+
 
     <!-- Main Content -->
     <div class="col-12 col-md-9">
@@ -169,7 +170,7 @@ $result = mysqli_query($koneksi, $query);
                   <td><?= $no++ ?></td>
                   <td>
                     <?php if ($row['poster']) : ?>
-                      <img src="poster/<?= htmlspecialchars($row['poster']) ?>" class="poster-img" alt="Poster">
+                      <img src="../admin/poster/<?= htmlspecialchars($row['poster']) ?>" class="poster-img" alt="Poster">
                     <?php else : ?>
                       <span>Tidak ada</span>
                     <?php endif; ?>
@@ -200,7 +201,7 @@ $result = mysqli_query($koneksi, $query);
             </tbody>
           </table>
         </div>
-
+        </div>
       </div>
     </div>
   </div>

@@ -1,6 +1,10 @@
 <?php
 session_start();
-include '../koneksi.php';
+if (!isset($_SESSION['username'])) {
+  header("Location: login.php");
+  exit();
+}
+include 'koneksi.php';
 
 if (isset($_GET['id']) && isset($_GET['status'])) {
     $id_event = intval($_GET['id']);

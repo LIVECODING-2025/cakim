@@ -1,11 +1,24 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+  header("Location: login.php");
+  exit();
+}
+
 include 'koneksi.php';
 
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
   die("Koneksi gagal: " . $conn->connect_error);
 }
+
+// Ambil data pengguna berdasarkan id_user yang disimpan di session
+$query = "SELECT * FROM user WHERE id_user = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $_SESSION['id_user']);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
 
 // Total event
 $totalEventQuery = "SELECT COUNT(*) as total FROM event WHERE status = 'disetujui'";
@@ -19,7 +32,7 @@ $totalSeminar = $conn->query($seminarQuery)->fetch_assoc()['total'];
 $workshopQuery = "SELECT COUNT(*) as total FROM event WHERE kategori = 'workshop' AND status = 'disetujui'";
 $totalWorkshop = $conn->query($workshopQuery)->fetch_assoc()['total'];
 
-// Event terbaru (by upload time)
+// Event terbaru
 $query = "SELECT * FROM event WHERE status = 'disetujui' ORDER BY created_at DESC LIMIT 3";
 $result = $conn->query($query);
 
@@ -112,8 +125,9 @@ $mingguIniResult = $conn->query($mingguIniQuery);
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <div class="navbar-nav">
-        <a class="nav-link" href="about.html">About</a>
-        <a class="nav-link" href="account.html">Account</a>
+        <a class="nav-link" href="about.php">About</a>
+        <a class="nav-link" href="profile.php">Profile</a>
+        <a class="nav-link" href="logout.php">Logout</a>
       </div>
     </div>
   </div>
@@ -126,9 +140,9 @@ $mingguIniResult = $conn->query($mingguIniQuery);
     <div class="col-md-3">
       <div class="sidebar d-flex flex-column gap-2">
         <a href="dashboard.php" class="nav-link-btn active"><i class="fas fa-home me-2"></i> Dashboard</a>
-        <a href="event.html" class="nav-link-btn"><i class="fas fa-calendar-alt me-2"></i> Event</a>
-        <a href="seminar.html" class="nav-link-btn"><i class="fas fa-chalkboard-teacher me-2"></i> Seminar</a>
-        <a href="workshop.html" class="nav-link-btn"><i class="fas fa-tools me-2"></i> Workshop</a>
+        <a href="event.php" class="nav-link-btn"><i class="fas fa-calendar-alt me-2"></i> Event</a>
+        <a href="seminar.php" class="nav-link-btn"><i class="fas fa-chalkboard-teacher me-2"></i> Seminar</a>
+        <a href="workshop.php" class="nav-link-btn"><i class="fas fa-tools me-2"></i> Workshop</a>
       </div>
     </div>
 
@@ -136,7 +150,7 @@ $mingguIniResult = $conn->query($mingguIniQuery);
     <div class="col-md-9">
       <div class="main-content">
         <div class="mb-4">
-          <h2 class="fw-bold text-primary">Selamat Datang di Serievent.id!</h2>
+          <h2 class="fw-bold text-primary">Selamat Datang, <?= htmlspecialchars($_SESSION['username']) ?>!</h2>
           <p class="text-muted">Temukan dan ikuti berbagai seminar dan workshop terbaik dari kami!</p>
         </div>
 

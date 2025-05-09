@@ -2,7 +2,8 @@
 $koneksi = mysqli_connect("localhost", "root", "", "seri_event");
 
 // Cek koneksi
-if (mysqli_connect_errno()) {
+if (!$koneksi) {
     echo "Koneksi database gagal: " . mysqli_connect_error();
     exit;
 }
+?>

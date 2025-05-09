@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION["username"])) {
+  header("Location: login.php");
+  exit();
+}
 include 'koneksi.php';
 
 if (!isset($_GET['id_event'])) {
@@ -9,7 +13,7 @@ if (!isset($_GET['id_event'])) {
 }
 
 $id_event = intval($_GET['id_event']);
-$query = mysqli_query($koneksi, "SELECT * FROM event WHERE id_event = $id_event");
+$query = mysqli_query($conn, "SELECT * FROM event WHERE id_event = $id_event");
 $data = mysqli_fetch_assoc($query);
 
 if (!$data) {
@@ -19,17 +23,17 @@ if (!$data) {
 }
 
 if (isset($_POST['submit'])) {
-    $nama_event = mysqli_real_escape_string($koneksi, $_POST['nama_event']);
+    $nama_event = mysqli_real_escape_string($conn, $_POST['nama_event']);
     $tanggal = $_POST['tanggal'];
     $waktu = $_POST['waktu'];
-    $lokasi = mysqli_real_escape_string($koneksi, $_POST['lokasi']);
+    $lokasi = mysqli_real_escape_string($conn, $_POST['lokasi']);
     $kategori = $_POST['kategori'];
     $kuota = intval($_POST['kuota']);
-    $deskripsi = mysqli_real_escape_string($koneksi, $_POST['deskripsi']);
+    $deskripsi = mysqli_real_escape_string($conn, $_POST['deskripsi']);
 
     $poster = $data['poster'];
     if ($_FILES['poster']['name']) {
-        $folder = 'poster/';
+        $folder = '../admin/poster/';
         $file_tmp = $_FILES['poster']['tmp_name'];
         $file_name = time() . '_' . basename($_FILES['poster']['name']);
         $target = $folder . $file_name;
@@ -46,7 +50,7 @@ if (isset($_POST['submit'])) {
         }
     }
 
-    $update = mysqli_query($koneksi, "UPDATE event SET 
+    $update = mysqli_query($conn, "UPDATE event SET 
         nama_event = '$nama_event',
         tanggal = '$tanggal',
         waktu = '$waktu',
@@ -98,7 +102,7 @@ if (isset($_POST['submit'])) {
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <div class="navbar-nav">
         <a class="nav-link text-white" href="#">About</a>
-        <a class="nav-link text-white" href="#">Account</a>
+        <a class="nav-link text-white" href="profile.php">Profile</a>
       </div>
     </div>
   </div>
@@ -108,10 +112,14 @@ if (isset($_POST['submit'])) {
   <div class="row g-4">
     <div class="col-md-3">
       <div class="p-3 bg-light rounded d-flex flex-column gap-2" style="height: calc(100vh - 70px); position: sticky; top: 70px;">
-        <a href="upload.php" class="nav-link-btn d-flex align-items-center"><i class="fas fa-cloud-upload-alt me-2"></i> Upload Event</a>
+        <a href="dashboard.html" class="nav-link-btn d-flex align-items-center"><i class="fas fa-home me-2"></i> Dashboard</a>
+        <a href="#" class="nav-link-btn d-flex align-items-center"><i class="fas fa-calendar-alt me-2"></i> Event</a>
+        <a href="seminar.html" class="nav-link-btn d-flex align-items-center"><i class="fas fa-chalkboard-teacher me-2"></i> Seminar</a>
+        <a href="workshop.html" class="nav-link-btn d-flex align-items-center"><i class="fas fa-tools me-2"></i> Workshop</a>
         <a href="edit_event.php" class="nav-link-btn active d-flex align-items-center">
         <i class="fas fa-edit me-2"></i> Edit Event</a>
         <a href="tabel.php" class="nav-link-btn d-flex align-items-center"><i class="fas fa-table me-2"></i> Tabel Event</a>
+        <a href="konfirmasi.php" class="nav-link-btn d-flex align-items-center"><i class="fas fa-check-square me-2"></i> Konfirmasi Event</a>
       </div>
     </div>
 
@@ -166,7 +174,7 @@ if (isset($_POST['submit'])) {
           <div class="mb-3">
             <label class="form-label">Poster Saat Ini:</label><br>
             <?php if ($data['poster']): ?>
-              <img src="poster/<?= $data['poster'] ?>" class="poster-img mb-2">
+              <img src="../admin/poster/ $data['poster'] ?>" class="poster-img mb-2">
             <?php else: ?>
               <p><i>Tidak ada poster</i></p>
             <?php endif; ?>

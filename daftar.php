@@ -1,5 +1,11 @@
 <?php
-include 'koneksi.php'; // Pastikan koneksi.php berfungsi dan ada
+session_start();
+if (!isset($_SESSION['username'])) {
+  header("Location: login.php");
+  exit();
+}
+
+include 'koneksi.php';
 
 // Ambil id_event yang dipilih sebelumnya, bisa menggunakan GET
 $id_event_terpilih = isset($_GET['id_event']) ? $_GET['id_event'] : null;
@@ -114,7 +120,7 @@ if ($id_event_terpilih) {
                         <?php if ($event): ?>
                             <!-- Menampilkan nama event sesuai id_event -->
                             <input type="text" class="form-control" value="<?= htmlspecialchars($event['nama_event']) ?>" disabled>
-                            <input type="hidden" name="id_event" value="<?= $event['id_event'] ?>"> <!-- id_event tetap terkirim ke server -->
+                            <input type="hidden" name="id_event" value="<?= $event['id_event'] ?>">   <!-- id_event tetap terkirim ke server -->
                         <?php else: ?>
                             <input type="text" class="form-control" placeholder="Event tidak ditemukan" disabled>
                         <?php endif; ?>

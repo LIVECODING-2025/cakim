@@ -1,6 +1,10 @@
 <?php
 session_start();
-include '../koneksi.php';
+if (!isset($_SESSION["username"])) {
+  header("Location: login.php");
+  exit();
+}
+include 'koneksi.php';
 
 // Ambil data event yang statusnya 'menunggu'
 $query = "SELECT * FROM event WHERE status = 'menunggu'";
@@ -128,7 +132,6 @@ $result = mysqli_query($conn, $query); // Gunakan $conn sesuai dengan variabel k
     <a href="event.php" class="nav-link-btn"><i class="fas fa-calendar-alt me-2"></i> Event</a>
     <a href="seminar.php" class="nav-link-btn"><i class="fas fa-chalkboard-teacher me-2"></i> Seminar</a>
     <a href="workshop.php" class="nav-link-btn"><i class="fas fa-tools me-2"></i> Workshop</a>
-    <a href="upload.php" class="nav-link-btn"><i class="fas fa-cloud-upload-alt me-2"></i> Upload Event</a>
     <a href="tabel.php" class="nav-link-btn"><i class="fas fa-table me-2"></i> Tabel Event</a>
     <a href="konfirmasi.php" class="nav-link-btn active"><i class="fas fa-check-square me-2"></i> Konfirmasi Event</a>
     </div>
